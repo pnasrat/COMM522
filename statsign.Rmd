@@ -1,6 +1,10 @@
 ---
 title: "Statistical significance"
-author: Yph Lelkes, Comm 522
+author: 
+  - Yph Lelkes, Comm 522
+  - Pris Nasrat
+  - Xinyi Wang
+  - Rachel Xian
 date: November 4, 2020
 #output: tufte::tufte_html
 knit: (function(input_file, encoding) {
