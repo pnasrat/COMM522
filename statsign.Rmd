@@ -2,7 +2,12 @@
 title: "Statistical significance"
 author: Yph Lelkes, Comm 522
 date: November 4, 2020
-output: tufte::tufte_html
+#output: tufte::tufte_html
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 ---
 
 ```{r include=FALSE}
