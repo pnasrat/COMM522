@@ -1,0 +1,344 @@
+---
+title: "Statistical significance"
+author: Yph Lelkes, Comm 522
+date: November 4, 2020
+output: tufte::tufte_html
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(eval=FALSE)
+```
+
+Please send to Isabelle and I by 9 am, November 12. 
+
+Purpose[^1]
+=======
+
+The purpose of this activity is to provide you with an understanding of statistical inference and to both develop and apply that knowledge to the use of the R statistical programming environment. 
+
+Statistical significance is a concept related to \textit{statistical} hypothesis testing. We will focus on Fisher's method of null hypothesis significance testing testing, as it's still the dominant way we test hypotheses. Fisher was a racist, eugenicist, and tobacco propagandaist. Nonetheless, his methods have been widely adopted, and if one is to engage with the literature, it's important to be familar with it. 
+
+Happily, as we'll talk about in a couple weeks, people are increasingly skeptical of some of these ideas, although I doubt they'll ever go away.  
+
+Background
+========
+
+First, read an overview of the steps of NHST (this is copy and pasted from here: https://www.frontiersin.org/articles/10.3389/fpsyg.2015.00223/full): 
+
+
+## Step 1–Select an appropriate test. 
+This step calls for selecting a test appropriate to, primarily, the research goal of interest (Fisher, 1932), although you may also need to consider other issues, such as the way your variables have been measured. For example, if your research goal is to assess differences in the number of people in two independent groups, you would choose a chi-square test (it requires variables measured at nominal levels); on the other hand, if your interest is to assess differences in the scores that the people in those two groups have reported on a questionnaire, you would choose a t-test (it requires variables measured at interval or ratio levels and a close-to-normal distribution of the groups' differences).
+
+## Step 2–Set up the null hypothesis (H0). 
+The null hypothesis derives naturally from the test selected in the form of an exact statistical hypothesis (e.g., H0: M1–M2 = 0; Neyman and Pearson, 1933; Carver, 1978; Frick, 1996). Some parameters of this hypothesis, such as variance and degrees of freedom, are estimated from the sample, while other parameters, such as the distribution of frequencies under a particular distribution, are deduced theoretically. The statistical distribution so established thus represents the random variability that is theoretically expected for a statistical nil hypothesis (i.e., H0 = 0) given a particular research sample (Fisher, 1954, 1955; Bakan, 1966; Macdonald, 2002; Hubbard, 2004). It is called the null hypothesis because it stands to be nullified with research data (Gigerenzer, 2004).
+
+Among things to consider when setting the null hypothesis is its directionality.
+
+### Directional and non-directional hypotheses.
+With some research projects, the direction of the results is expected (e.g., one group will perform better than the other). In these cases, a directional null hypothesis covering all remaining possible results can be set (e.g., H0: M1–M2 = 0). With other projects, however, the direction of the results is not predictable or of no research interest. In these cases, a non-directional hypothesis is most suitable (e.g., H0: M1–M2 = 0).
+
+## Step 3-Calculate the theoretical probability of the results under H0 (p).
+Once the corresponding theoretical distribution is established, the probability (p-value) of any datum under the null hypothesis is also established, which is what statistics calculate (Fisher, 1955, 1960; Bakan, 1966; Johnstone, 1987; Cortina and Dunlap, 1997; Hagen, 1997). Data closer to the mean of the distribution have a greater probability of occurrence under the null distribution; that is, they appear more frequently and show a larger p-value (e.g., p = 0.46, or 46 times in a 100 trials). On the other hand, data located further away from the mean have a lower probability of occurrence under the null distribution; that is, they appear less often and, thus, show a smaller p-value (e.g., p = 0.003). Of interest to us is the probability of our research results under such null distribution (e.g., the probability of the difference in means between two research groups). 
+
+The p-value comprises the probability of the observed results and also of any other more extreme results (e.g., the probability of the actual difference between groups and any other difference more extreme than that). Thus, the p-value is a cumulative probability rather than an exact point probability: It covers the probability area extending from the observed results toward the tail of the distribution (Fisher, 1960; Carver, 1978; Frick, 1996; Hubbard, 2004).
+
+## Step 4–Assess the statistical significance of the results. 
+Fisher proposed tests of significance as a tool for identifying research results of interest, defined as those with a low probability of occurring as mere random variation of a null hypothesis. A research result with a low p-value may, thus, be taken as evidence against the null (i.e., as evidence that it may not explain those results satisfactorily; Fisher, 1960; Bakan, 1966; Johnstone, 1987; Macdonald, 2002). How small a result ought to be in order to be considered statistically significant is largely dependent on the researcher in question, and may vary from research to research (Fisher, 1960; Gigerenzer, 2004). The decision can also be left to the reader, so reporting exact p-values is very informative (Fisher, 1973; Macdonald, 1997; Gigerenzer, 2004).
+
+Overall, however, the assessment of research results is largely made bound to a given level of significance, by comparing whether the research p-value is smaller than such level of significance or not (Fisher, 1954, 1960; Johnstone, 1987):
+
+  * If the p-value is approximately equal to or smaller than the level of significance, the result is considered statistically significant.
+
+  * If the p-value is larger than the level of significance, the result is considered statistically non-significant.
+
+Among things to consider when assessing the statistical significance of research results are the level of significance, and how it is affected by the directionality of the test and other corrections.
+
+### Level of significance (sig). 
+
+The level of significance is a theoretical p-value used as a point of reference to help identify statistically significant results. There is no need to set up a level of significance a priori nor for a particular level of significance to be used in all occasions, although levels of significance such as 5% (sig ≈0.05) or 1% (sig ≈0.01) may be used for convenience, especially with novel research projects (Fisher, 1960; Carver, 1978; Gigerenzer, 2004). This highlights an important property of Fisher's levels of significance: They do not need to be rigid (e.g., p-values such as 0.049 and 0.051 have about the same statistical significance around a convenient level of significance of 5%; Johnstone, 1987).
+
+Another property of tests of significance is that the observed p-value is taken as evidence against the null hypothesis, so that the smaller the p-value the stronger the evidence it provides (Fisher, 1960; Spielman, 1978). This means that it is plausible to gradate the strength of such evidence with smaller levels of significance. For example, if using 5% (sig ≈0.05) as a convenient level for identifying results which are just significant, then 1% (sig ≈0.01) may be used as a convenient level for identifying highly significant results and 1‰ (sig ≈0.001) for identifying extremely significant results.
+                        
+
+
+Questions for you:
+========
+
+***Q1*** In your own words, attempt to explain what it means for a research conclusion to be *significant*. You may find it useful to distinguish *substantive significance* from *statistical significance*.
+
+--- 
+
+To develop an initial understanding of the idea of statistical hypothesis testing (and statistical significance), we will think about the idea of "outliers." Outliers are unusual values in a variable (or set of variables). For example, consider the following variable:
+
+```{r}
+v <- c(1,1,1,1,2,2,2,2,2,3,3,3,3,10)
+```
+
+It should be clear that the value 10 here is an outlier. If we draw a boxplot of this variable, it becomes even more clear:
+
+```{r}
+library("ggplot2")
+ggplot(, aes(x = 1, y = v)) + geom_boxplot() + scale_y_continuous(limits = c(0,12))
+```
+
+***Q2*** Calculate the mean and standard deviation of v
+
+--- 
+
+If we expected all the values of *v* to be relatively similar, we could point out that the value 10 is more than 3 standard deviations away from the mean of the variable. Recall that a standard deviation tells us the spread of observations in a sample. 68 percent of the scores lie within one standard deviation of the mean, 95 percent lie 2 standard deviations away from the mean, 99 percent lie 3 standard deviations from the mean. A score 3 standard deviations away from the mean would mean its more extreme than 99 percent of the scores in the sample.
+
+
+***Q3*** To show how many standard deviations 10 is the mean of v, subtract v from 10 and divide by the standard deviation. Copy and paste the code for that analysis.
+
+--- 
+
+
+This idea that a value is an outlier relative to some assumed central tendency is the basic logic of statistical hypothesis testing.
+
+In statistical hypothesis testing, however, we are instead interested to know how unusual a *statistic* is relative to our baseline expectation of what the value of the statistic should be. Commonly we are interested in statistics that describe a sample of cases, such as:
+
+| Example                                                   | Statistic | Unit of Analysis | Concepts/Variables |
+|-----------------------------------------------------------|-----------|------------------|--------------------|
+| Mean years of education for working-age adults            |           |                  |                    |
+| Proportion of university graduates                        |           |                  |                    |
+| The male--female mean difference in annual income         |           |                  |                    |
+| The correlations between education, sex, and income       |           |                  |                    |
+| The causal effect of a university degree on annual income |           |                  |                    |
+
+
+***Q4*** For each of the above examples, what are the *statistic*, *unit of analysis*, and *variables*/*concepts* involved in the analysis?
+
+--- 
+
+
+Each of the above statistics can be calculated on a sample of cases in order to make descriptive (or causal) inferences about the population of cases as a whole. But, given what we know about sampling, these inferences carry with them a degree of uncertainty that is a function of the size of the sample of cases selected from that population.
+
+A sample statistic provides an estimate of the population *parameter*. The amount of uncertainty we have about the precise value of the population parameter decreases.
+
+Carrying forward this basic logic of *sampling variability* (or *sampling error*, *sampling uncertainty*), we may want to characterize a sample statistic as *statistically significant*. That is, we may want to say that a sample estimate appears unusual in light of some prior expectation about the population parameter value ought to or is thought to be. To figure that out, we have to describe --- in R.A. Fisher's language --- a "null hypothesis." This is a value that we think the parameter might have in the population. We are therefore trying to see whether the statistic in our sample data differs from this (hypothetical) null population parameter.
+
+***Q5*** Based upon what you know or your own intuition, how might we determine whether a statistic is unusual? What process would we use to assert that?
+
+---
+
+
+At its core, statistical significance testing attempts to wrestle with the fact that an observed sample statistic that *appears* unusual may still be possible (or even highly probable because of sampling variability) to see from a population whose parameter is equal to the null hypothesis value. In other words, an apparently large difference between our sample statistic and the null hypothesis parameter value might be erroneous. 
+
+Statistical hypothesis testing therefore asserts that we only consider a *sample* statistic to indicate that its popular parameter differs from the null hypothesis value --- and is thus "statistically significant" --- when it is quite far from the null hypothesis value. But how far exactly is "quite far"? To decide that, we return to the idea of repeated sampling.
+
+We consider a statistic "statistically significant" when it differs more from our null expectation of the population parameter (i.e., the null hypothesis) than the vast majority of the variation in sample statistics we could observe across repeated samples from a population where that null hypothesis was true.
+
+***Q6*** In your own words, try restating that definition of statistical significance.
+
+---
+
+For a mean (like the one we looked at earlier), this would be stated as a null expectation that the mean level of education in a country is 12 years. If we collect a sample of data and find that the mean is different from 12, we would consider that mean to be statistically significantly different from our null expectation of 12 years if the sample mean was further from 12 (i.e., much larger or much smaller) than the vast majority of sample means we could expect to observe from same-sized samples drawn from a population where the true mean was 12.
+
+
+Now let's put this into practice using R.
+
+Here's a dataset of stats from the 2015-2016 NBA season. To make our lives easier, the second line of code removes missing values.
+
+```{r}
+nba <- read.csv("https://raw.githubusercontent.com/AddisonGauss/NbaData2015-2016/master/NBApoints.csv")
+nba <- nba[!is.na(nba$FT.),]
+```
+
+The variable FT. indicates how often a player makes freethrows. Given that this is the entire roster of the NBA in that year, we'll consider this the population parameter.
+
+***Q7*** Use `mean()` to calculate the "true" population mean of this population.
+
+---
+
+
+***Q8*** Plot the distribution of FT.
+
+```{r}
+library("ggplot2")
+ggplot(nba, aes(x = FT.)) + geom_histogram()
+```
+
+---
+
+Now, we will draw a small sample from this population using the `sample()` function. Start by drawing a small sample of just ten observations:
+
+```{r}
+s1 <- sample(nba$FT., 5, FALSE)
+```
+Use **ggplot2** to draw a histogram of these data:
+
+```{r}
+ggplot(, aes(x = s1)) + geom_histogram()
+```
+
+***Q8*** What is the sample mean of this sample? How variable are the data as shown in the histogram?
+
+---
+
+Now, repeat this but drawing a larger sample size of size 100 (call this vector `s2`).
+
+```{r}
+s2 <- sample(nba$FT., 100, FALSE)
+```
+
+***Q9*** How variable are these data? What is the sample mean of `s2`?
+
+---
+
+Recall that the *standard error* is meant to capture the idea that if we repeated our sampling process and calculated our statistic of interest (in this case, the mean) on each sample, the standard deviation of those estimates around the true mean would be equal to our standard error. To get a better grasp on this idea, we are going to simulate the process of drawing random samples from our population and then compare the standard deviation of our estimates from each sample to the standard errors we calculate above.
+
+To do this, we are going to use the `replicate()` function. This function allows us to repeat a calculate multiple times and return the results in a convenient form. To understand how it works, try generating a single sum of two random numbers: `rnorm(1) + rnorm(1)`. Then, use `replicate()` to do this five times:
+
+```{r}
+replicate(5, rnorm (1) + rnorm (1))
+```
+
+Note how the result is simply a vector.
+
+Now, we want to apply this function to the calculation of the sample mean, as above. To do so, we simply write:
+
+```{r}
+# five samples of size n = 5
+replicate(5, mean(sample(nba$FT., 5, FALSE)))
+
+# 1,000 samples of size n = 5
+dist5 <- replicate(1000, mean(sample(nba$FT., 5, FALSE)))
+
+# 100 samples of size n = 100
+dist100 <- replicate(100, mean(sample(nba$FT., 100, FALSE)))
+```
+
+This vector of sample means is often called the "sampling distribution" of the mean. This term refers to the distribution of a given statistic across repeated samples of the same size from a population. Plot the histograms of the results.
+
+The margin of error is a form of "interval estimation" in which we express our uncertainty about the value of a parameter by stating the range of values that the parameter is expected to be in based upon our sample estimate. The interval that is equivalent to estimate +/- 2 times the standard error is also called a 95% confidence interval (for reasons we will return to below). It tells us that if we are 95 percent confident that the true population parameter lies in that interval.
+
+To calculate the standard error, divide the standard deviation by the square root of the sample size.
+
+```{r}
+s1.se <- sd(s1)/sqrt(10)
+```
+
+***Q10*** Calculate the 95 percent confidence interval for s1 and s2. Describe the confidence intervals in your own words.
+
+---
+
+Now compare the standard deviation of the sampling distribution of dist100 to the standard error of a sample of size 100. They are, hopefully, quite similar.
+
+In statistical hypothesis testing, we will say that an estimate is statistically significantly different from the null hypothesis value when the sample statistic is more than a certain number of standard errors away from the null hypothesis value. But how far is far enough to be considered *significant*? Take a look at how many observations in our `dist100` vector--recall that each observation represents the mean of a random sample--are more than 3 standard errors, more than 2 standard errors, and more than 1 standard error above or below the true mean of `x`:
+
+```{r}
+dist100[dist100 > (mean(nba$FT.) + 3*sd(dist100))]
+dist100[dist100 < (mean(nba$FT.) - 3*sd(dist100))]
+dist100[dist100 > (mean(nba$FT.) + 2*sd(dist100))]
+dist100[dist100 < (mean(nba$FT.) - 2*sd(dist100))]
+dist100[dist100 > (mean(nba$FT.) + 1*sd(dist100))]
+dist100[dist100 < (mean(nba$FT.) - 1*sd(dist100))]
+```
+***Q10*** How many of the sample means are within 1, 2, and 3 standard errors of the mean?
+
+---
+
+Now here is where a short moment of consideration is required before we proceed. In statistical hypothesis testing, we are declaring a null hypothesis value as a *known* population and seeing how likely different sample estimates are when we draw repeated random samples from that population. We declare a sample statistic "statistically significant" when the sample statistic is unusually far from the null hypothesis value in that *sampling distribution* because it would seem to suggest that the sample is drawn from a population with a different population parameter value than one with a population parameter equal to the null hypothesis value. In other words, the sample statistic is so unusual for the population from which we --- under the null hypothesis --- believe that the data are drawn from, that we decide that the data are actually drawn from a population with a different population mean. That's the essence of statistical hypothesis testing.
+
+Hopefully, you've caught on that there's a leap being made here: in practice we don't generally have population data in front of us (indeed, that's the whole point of why we're analyzing a sample in the first place --- to learn something about the population that we haven't fully observed). We don't actually know the population mean (or any population parameter), so we can't draw repeated random samples from the population to create a sampling distribution. We just have the data in front of us.
+
+So, if we set a null expectation of the population parameter value and find that our sample statistic differs from that considerably, we are inclined to "reject the null hypothesis" and believe the population parameter value is different from our null expectation. But, this judgment is based upon seeing a sample statistic that is apparently *unusual*, not *impossible*, under the null hypothesis. We might therefore reject the null hypothesis sometimes when the population parameter actually is equal to the null hypothesis value but where this particular sample (due to the inherent limitations of sampling) just happens to be unusual.
+
+To avoid doing this too often, we have to define an "error rate" or "significance level" that only allows us to make these kind of "false positive" judgments quite rarely. We'll call this significance level $\alpha$ in order to explore different possible values and what consequences that has for the probability of obtaining a "false positive." A commonly used value of $\alpha$ is 0.05. This means that we will only declare a sample statistic to be "statistically significant" when it is as far or farther from the null hypothesis value as 5% of the possible sample statistics generated from random samples from a population with a parameter equal to the null hypothesis value. In essence, we're looking for an outlier statistic that is farther than the 2.5% percentile or 97.5% percentile of the sampling distribution. If we look at our sampling distribution, we can see how far a sample statistic would have to be in order for us declare it statistically significantly different from the population mean:
+
+```{r}
+quantile(dist100, c(0.025, 0.975))
+```
+
+Check your understanding by assessing why these particular quantiles are used when $\alpha = 0.05$. Those quantiles reflect a "two-tailed" hypothesis test in which we look to see whether a sample statistic is an outlier in either direction. 
+
+***Q10*** What quantiles would we consider if we were doing a "one-tailed" hypothesis to see if the sample statistic was an outlier only on the upper end of the distribution? only on the lower end of the distribution?
+
+---
+
+Let's try another example, this time looking at a one-tailed test. Your friend says that they make  at least 75 percent of their free throws (H_a is p(success)>.75). You test them, they make 12 out of 20 free throws.
+
+***Q11*** If you kept on creating sets (let's say 1000) of freethrows (size 20), how many samples would do equal or worse than 12/20? Do you reject the null hypothesis that your friends free throw average equals 75 (i.e., no difference)?
+
+```{r}
+## rbinom is a way to sample from a distribution of successes and failures. The sample size is n, .75 is the true parameter.
+frienddat <- replicate(1000, mean(rbinom(n = 20,1,.75)))
+```
+
+---
+
+***Q12*** Different values of $\alpha$ are possible. Small values mean we want a lower chance of a "false positive" judgment, at the expense of making many more "false negatives" (judgments where we say a sample statistic is consistent with the null hypothesis when in fact it is drawn from a different population). Try some different values. Why are these two rates (false positives and false negatives) trade-offs?
+
+---
+
+But recall, we rarely have access to the population mean and we rarely have the ability to repeatedly sample from a population in order to create a sampling distribution. We therefore rely on "distributional" (or "parametric") assumptions.
+
+Rather than generating a sampling distribution from repeatedly sampling (because we only have one sample), we instead rely upon a mathematical theorem --- the central limit theorem --- that shows that the sampling distribution of the mean is normally distributed. You can get a sense of this by repeating our repeated sampling exercise above by collecting more samples. The more samples we draw from the population (even if they are all size $n=10$), the more and more the shape of the sampling distribution will resemble the normal distribution's bell curve:
+
+```{r}
+ggplot(, aes(x = replicate(10, mean(sample(nba$FT., 10, FALSE))))) +
+            geom_histogram(bins = 21) + xlim(0,1)
+
+ggplot(, aes(x = replicate(30, mean(sample(nba$FT., 10, FALSE))))) +
+            geom_histogram(bins = 21) + xlim(0,1)
+
+ggplot(, aes(x = replicate(200, mean(sample(nba$FT., 10, FALSE))))) +
+            geom_histogram(bins = 21) + xlim(0,1)
+```
+
+This property enables us to calculate how unusual a sample estimate is against a null hypothesis by simply calculating the probability of seeing different statistic values given the normal distribution (which has a well-defined formula). In R we can calculate these probabilities using the `pnorm()` function. If we are thinking about sample means, we can calculate the probability of different sample means against any particular null hypothesis parameter value. To do so, however, requires that we express the mean as a difference from the null hypothesis value and rescale to the scale of standard errors. In our example, we have to convert the sample mean to number of years different from the population mean and then rescale to units in number of standard errors: i.e., from `mean(s2)` to
+
+```{r}
+zstat <- (mean(s2) - .6) / ( sd(s2)/sqrt(length(s2)) )
+```
+
+This value is called a $z$-statistic. If we had a different null hypothesis value (e.g., that the population mean was .75), we would use that instead of .8 in the above calculation.
+
+When this $p$-value is smaller than $\alpha$ level, we judge the sample mean to be "statistically significantly different from zero." When the $p$-value is larger than $\alpha$, we declare that the test statistic is not statistically significantly different from the null hypothesis value. However, it is important to remember when reading this that a $p-value$ is not:
+
+  * the probability that a hypothesis is true or false
+  * a statement about the importance or substantive size of the effect
+
+To see how unusual this $z$-statistic is, we plug it into the `pnorm()` function (1 minus the absolute value of the zstat): `1-pnorm(abs(zstat))`.
+
+The output is called a $p$-value and can be understood as the probability of seeing a test statistic this far or farther from the null hypothesis value. Formally, it is "the probability of a $z$-statistic as extreme as the one we observed, if the null hypothesis was true." When this $p$-value is smaller than $\alpha$ level, we judge the sample mean to be "statistically significantly different from zero." When the $p$-value is larger than $\alpha$, we declare that the test statistic is not statistically significantly different from the null hypothesis value.
+
+However, it is important to remember when reading this that a $p-value$ is not:
+  * the probability that a hypothesis is true or false
+  * a statement about the importance or substantive size of the effect
+
+To see how large a $z$-statistic has to be to cross different $\alpha$ levels, you can explore the `qnorm()` function, which takes a $p$-value as input and returns the corresponding $z$-statistic.
+
+```{r}
+        qnorm(0.0251)  # 5% significance level
+        qnorm(0.050)  # 10% significance level
+        qnorm(0.330)  # 33% significance level
+        qnorm(0.250)  # 50% significance level
+```
+
+
+## Two-sample t-tests
+
+Rather than comparing our sample statistic to some population parameter, we're often comparing two samples, e.g., control or treatment, two demographic groups. We can use a two-sample t-test to compare the groups .
+
+In a two-sample t-test, we are comparing the means in two groups and asking, as with the z-test, if its possible that we saw any difference between the two groups due to chance alone. 
+
+Let's say we hypothesize that older players (older than 27) are better free throw shooters than younger players (27 or younger).
+
+The null hypothesis (H0): the free throw average for these two groups are equal/the difference between the means is 0/these two samples came from the same population.
+
+The alternative hypothesis (one-tailed): Younger players are worse free throw shooters than older players.
+
+We can analyze this by hand, by calculating the mean, sample size, and standard deviation in each group. Or we can do this easily with the t.test function.
+
+```{r,eval=F}
+## create a dichotomous variable indicating if a player is 27 or younger (coded 1 or not [coded 0])
+nba$young <- ifelse(nba$Age<=27,1,0)
+t.test(FT.~young,nba)
+```
+
+The t-statistic can be interpreted like a z-statistic--if the null is true (that these two groups are equal), what are the odds that we got a difference as big as the one we found in the sample. The output in R will give you the t-statistic, the p-value, and the means in each group.
+
+***Q13*** Interpret this result. Are young players as good as older players w/ re: free throws?
+
+[^1] This handout is heavily borrowed from Thomas Leeper (Creative Commons Attribution-ShareAlike License 3.0.) https://github.com/leeper/designcourse/tree/gh-pages/Assignments
