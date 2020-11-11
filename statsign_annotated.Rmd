@@ -141,7 +141,7 @@ In statistical hypothesis testing, however, we are instead interested to know ho
 | Example                                                   | Statistic | Unit of Analysis | Concepts/Variables |
 |-----------------------------------------------------------|-----------|------------------|--------------------|
 | Mean years of education for working-age adults            | Years Ed |  Mean years       | Working-age, adult |
-| Proportion of university graduates                        |           |                  |                    |
+| Proportion of university graduates                        | People and graduation status | Ratio                 | graduation status                    |
 | The male--female mean difference in annual income         |           |                  |                    |
 | The correlations between education, sex, and income       |           |                  |                    |
 | The causal effect of a university degree on annual income |           |                  |                    |
@@ -182,7 +182,7 @@ nba <- read.csv("https://raw.githubusercontent.com/AddisonGauss/NbaData2015-2016
 nba <- nba[!is.na(nba$FT.),]
 
 #  the tidy(verse) way!
-# PN/; moved this import to initial block that doesn't get included in the knit to make for cleaner output
+# PN moved this import to initial block that doesn't get included in the knit to make for cleaner output
 #library(tidyverse)
 nba <- nba %>%
   filter(!is.na(FT.))
@@ -195,7 +195,9 @@ The variable FT. indicates how often a player makes freethrows. Given that this 
 
 ```{r}
 mean(nba$FT.)
+```
 
+```{r}
 # Tidyverse table
 nba %>%
   summarise(mean=mean(FT.))
@@ -215,7 +217,7 @@ ggplot(nba, aes(x = FT.)) +
 Now, we will draw a small sample from this population using the `sample()` function. Start by drawing a small sample of just ten observations:
 
 ```{r}
-# Note text says 10, code says 5!
+# Note lab error here text says ten (10) observations, code says 5!
 s1 <- sample(nba$FT., 5, FALSE)
 ```
 Use **ggplot2** to draw a histogram of these data:
@@ -224,10 +226,15 @@ Use **ggplot2** to draw a histogram of these data:
 ggplot(, aes(x = s1)) + geom_histogram()
 ```
 
+---
+
 ***Q8*** What is the sample mean of this sample? How variable are the data as shown in the histogram?
 
 ```{r}
 mean(s1)
+sd(s1)
+# Obviously this changes with each random sampling and given the small sample size we'd expect a lot of deviation from Mu and sigma
+# in one case we saw:
 # one variable is slightly far off from the others
 ```
 
@@ -240,6 +247,7 @@ s2 <- sample(nba$FT., 100, FALSE)
 ***Q9*** How variable are these data? What is the sample mean of `s2`?
 ```{r}
 mean(s2)
+sd(s2)
 ```
 
 Recall that the *standard error* is meant to capture the idea that if we repeated our sampling process and calculated our statistic of interest (in this case, the mean) on each sample, the standard deviation of those estimates around the true mean would be equal to our standard error. To get a better grasp on this idea, we are going to simulate the process of drawing random samples from our population and then compare the standard deviation of our estimates from each sample to the standard errors we calculate above.
@@ -247,6 +255,7 @@ Recall that the *standard error* is meant to capture the idea that if we repeate
 To do this, we are going to use the `replicate()` function. This function allows us to repeat a calculate multiple times and return the results in a convenient form. To understand how it works, try generating a single sum of two random numbers: `rnorm(1) + rnorm(1)`. Then, use `replicate()` to do this five times:
 
 ```{r}
+rnorm(1)+rnorm(1)
 replicate(5, rnorm (1) + rnorm (1))
 ```
 
@@ -302,7 +311,10 @@ dist100[dist100 < (mean(nba$FT.) - 1*sd(dist100))]
 ```
 ***Q10*** How many of the sample means are within 1, 2, and 3 standard errors of the mean?
 
-We may have different results on this one cuz our s1 looks different?
+We may have different results on this one cuz our s1 looks different? (due to sampling)
+
+```{r}
+```
 
 Now here is where a short moment of consideration is required before we proceed. In statistical hypothesis testing, we are declaring a null hypothesis value as a *known* population and seeing how likely different sample estimates are when we draw repeated random samples from that population. We declare a sample statistic "statistically significant" when the sample statistic is unusually far from the null hypothesis value in that *sampling distribution* because it would seem to suggest that the sample is drawn from a population with a different population parameter value than one with a population parameter equal to the null hypothesis value. In other words, the sample statistic is so unusual for the population from which we --- under the null hypothesis --- believe that the data are drawn from, that we decide that the data are actually drawn from a population with a different population mean. That's the essence of statistical hypothesis testing.
 
