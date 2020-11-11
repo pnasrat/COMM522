@@ -8,6 +8,11 @@ author:
 date: November 4, 2020
 output:
   html_document
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+ encoding=encoding,
+ output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 ---
 
 ```{r include=FALSE}
@@ -299,9 +304,7 @@ Let's try another example, this time looking at a one-tailed test. Your friend s
 ```{r}
 ## rbinom is a way to sample from a distribution of successes and failures. The sample size is n, .75 is the true parameter.
 frienddat <- replicate(1000, mean(rbinom(n = 20,1,.75)))
-count(frienddat <= 0.8)
-
-
+#count(frienddat <= 0.8)
 
 ```
 
