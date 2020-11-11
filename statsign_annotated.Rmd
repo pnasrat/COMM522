@@ -2,32 +2,32 @@
 title: "Statistical significance -- slightly annotated"
 author: Yph Lelkes, Comm 522
 date: November 4, 2020
-output: 
+output:
   html_document
 ---
 
 
-Please send to Isabelle and I by 9 am, November 12. 
+Please send to Isabelle and I by 9 am, November 12.
 
 Purpose[^1]
 =======
 
-The purpose of this activity is to provide you with an understanding of statistical inference and to both develop and apply that knowledge to the use of the R statistical programming environment. 
+The purpose of this activity is to provide you with an understanding of statistical inference and to both develop and apply that knowledge to the use of the R statistical programming environment.
 
-Statistical significance is a concept related to \textit{statistical} hypothesis testing. We will focus on Fisher's method of null hypothesis significance testing testing, as it's still the dominant way we test hypotheses. Fisher was a racist, eugenicist, and tobacco propagandaist. Nonetheless, his methods have been widely adopted, and if one is to engage with the literature, it's important to be familar with it. 
+Statistical significance is a concept related to \textit{statistical} hypothesis testing. We will focus on Fisher's method of null hypothesis significance testing testing, as it's still the dominant way we test hypotheses. Fisher was a racist, eugenicist, and tobacco propagandaist. Nonetheless, his methods have been widely adopted, and if one is to engage with the literature, it's important to be familar with it.
 
-Happily, as we'll talk about in a couple weeks, people are increasingly skeptical of some of these ideas, although I doubt they'll ever go away.  
+Happily, as we'll talk about in a couple weeks, people are increasingly skeptical of some of these ideas, although I doubt they'll ever go away.
 
 Background
 ========
 
-First, read an overview of the steps of NHST (this is copy and pasted from here: https://www.frontiersin.org/articles/10.3389/fpsyg.2015.00223/full): 
+First, read an overview of the steps of NHST (this is copy and pasted from here: https://www.frontiersin.org/articles/10.3389/fpsyg.2015.00223/full):
 
 
-## Step 1–Select an appropriate test. 
+## Step 1–Select an appropriate test.
 This step calls for selecting a test appropriate to, primarily, the research goal of interest (Fisher, 1932), although you may also need to consider other issues, such as the way your variables have been measured. For example, if your research goal is to assess differences in the number of people in two independent groups, you would choose a chi-square test (it requires variables measured at nominal levels); on the other hand, if your interest is to assess differences in the scores that the people in those two groups have reported on a questionnaire, you would choose a t-test (it requires variables measured at interval or ratio levels and a close-to-normal distribution of the groups' differences).
 
-## Step 2–Set up the null hypothesis (H0). 
+## Step 2–Set up the null hypothesis (H0).
 The null hypothesis derives naturally from the test selected in the form of an exact statistical hypothesis (e.g., H0: M1–M2 = 0; Neyman and Pearson, 1933; Carver, 1978; Frick, 1996). Some parameters of this hypothesis, such as variance and degrees of freedom, are estimated from the sample, while other parameters, such as the distribution of frequencies under a particular distribution, are deduced theoretically. The statistical distribution so established thus represents the random variability that is theoretically expected for a statistical nil hypothesis (i.e., H0 = 0) given a particular research sample (Fisher, 1954, 1955; Bakan, 1966; Macdonald, 2002; Hubbard, 2004). It is called the null hypothesis because it stands to be nullified with research data (Gigerenzer, 2004).
 
 Among things to consider when setting the null hypothesis is its directionality.
@@ -36,11 +36,11 @@ Among things to consider when setting the null hypothesis is its directionality.
 With some research projects, the direction of the results is expected (e.g., one group will perform better than the other). In these cases, a directional null hypothesis covering all remaining possible results can be set (e.g., H0: M1–M2 = 0). With other projects, however, the direction of the results is not predictable or of no research interest. In these cases, a non-directional hypothesis is most suitable (e.g., H0: M1–M2 = 0).
 
 ## Step 3-Calculate the theoretical probability of the results under H0 (p).
-Once the corresponding theoretical distribution is established, the probability (p-value) of any datum under the null hypothesis is also established, which is what statistics calculate (Fisher, 1955, 1960; Bakan, 1966; Johnstone, 1987; Cortina and Dunlap, 1997; Hagen, 1997). Data closer to the mean of the distribution have a greater probability of occurrence under the null distribution; that is, they appear more frequently and show a larger p-value (e.g., p = 0.46, or 46 times in a 100 trials). On the other hand, data located further away from the mean have a lower probability of occurrence under the null distribution; that is, they appear less often and, thus, show a smaller p-value (e.g., p = 0.003). Of interest to us is the probability of our research results under such null distribution (e.g., the probability of the difference in means between two research groups). 
+Once the corresponding theoretical distribution is established, the probability (p-value) of any datum under the null hypothesis is also established, which is what statistics calculate (Fisher, 1955, 1960; Bakan, 1966; Johnstone, 1987; Cortina and Dunlap, 1997; Hagen, 1997). Data closer to the mean of the distribution have a greater probability of occurrence under the null distribution; that is, they appear more frequently and show a larger p-value (e.g., p = 0.46, or 46 times in a 100 trials). On the other hand, data located further away from the mean have a lower probability of occurrence under the null distribution; that is, they appear less often and, thus, show a smaller p-value (e.g., p = 0.003). Of interest to us is the probability of our research results under such null distribution (e.g., the probability of the difference in means between two research groups).
 
 The p-value comprises the probability of the observed results and also of any other more extreme results (e.g., the probability of the actual difference between groups and any other difference more extreme than that). Thus, the p-value is a cumulative probability rather than an exact point probability: It covers the probability area extending from the observed results toward the tail of the distribution (Fisher, 1960; Carver, 1978; Frick, 1996; Hubbard, 2004).
 
-## Step 4–Assess the statistical significance of the results. 
+## Step 4–Assess the statistical significance of the results.
 Fisher proposed tests of significance as a tool for identifying research results of interest, defined as those with a low probability of occurring as mere random variation of a null hypothesis. A research result with a low p-value may, thus, be taken as evidence against the null (i.e., as evidence that it may not explain those results satisfactorily; Fisher, 1960; Bakan, 1966; Johnstone, 1987; Macdonald, 2002). How small a result ought to be in order to be considered statistically significant is largely dependent on the researcher in question, and may vary from research to research (Fisher, 1960; Gigerenzer, 2004). The decision can also be left to the reader, so reporting exact p-values is very informative (Fisher, 1973; Macdonald, 1997; Gigerenzer, 2004).
 
 Overall, however, the assessment of research results is largely made bound to a given level of significance, by comparing whether the research p-value is smaller than such level of significance or not (Fisher, 1954, 1960; Johnstone, 1987):
@@ -51,12 +51,12 @@ Overall, however, the assessment of research results is largely made bound to a 
 
 Among things to consider when assessing the statistical significance of research results are the level of significance, and how it is affected by the directionality of the test and other corrections.
 
-### Level of significance (sig). 
+### Level of significance (sig).
 
 The level of significance is a theoretical p-value used as a point of reference to help identify statistically significant results. There is no need to set up a level of significance a priori nor for a particular level of significance to be used in all occasions, although levels of significance such as 5% (sig ≈0.05) or 1% (sig ≈0.01) may be used for convenience, especially with novel research projects (Fisher, 1960; Carver, 1978; Gigerenzer, 2004). This highlights an important property of Fisher's levels of significance: They do not need to be rigid (e.g., p-values such as 0.049 and 0.051 have about the same statistical significance around a convenient level of significance of 5%; Johnstone, 1987).
 
 Another property of tests of significance is that the observed p-value is taken as evidence against the null hypothesis, so that the smaller the p-value the stronger the evidence it provides (Fisher, 1960; Spielman, 1978). This means that it is plausible to gradate the strength of such evidence with smaller levels of significance. For example, if using 5% (sig ≈0.05) as a convenient level for identifying results which are just significant, then 1% (sig ≈0.01) may be used as a convenient level for identifying highly significant results and 1‰ (sig ≈0.001) for identifying extremely significant results.
-                        
+
 
 
 Questions for you:
@@ -79,8 +79,8 @@ It should be clear that the value 10 here is an outlier. If we draw a boxplot of
 
 ```{r}
 library("ggplot2")
-ggplot(, aes(x = 1, y = v))+ 
-  geom_boxplot() + 
+ggplot(, aes(x = 1, y = v))+
+  geom_boxplot() +
   scale_y_continuous(limits = c(0,12))
 ```
 
@@ -127,7 +127,7 @@ Carrying forward this basic logic of *sampling variability* (or *sampling error*
 A data point may be considered unusual when a data is "too far away", at least 2 standard deviation from the mean?
 
 
-At its core, statistical significance testing attempts to wrestle with the fact that an observed sample statistic that *appears* unusual may still be possible (or even highly probable because of sampling variability) to see from a population whose parameter is equal to the null hypothesis value. In other words, an apparently large difference between our sample statistic and the null hypothesis parameter value might be erroneous. 
+At its core, statistical significance testing attempts to wrestle with the fact that an observed sample statistic that *appears* unusual may still be possible (or even highly probable because of sampling variability) to see from a population whose parameter is equal to the null hypothesis value. In other words, an apparently large difference between our sample statistic and the null hypothesis parameter value might be erroneous.
 
 Statistical hypothesis testing therefore asserts that we only consider a *sample* statistic to indicate that its popular parameter differs from the null hypothesis value --- and is thus "statistically significant" --- when it is quite far from the null hypothesis value. But how far exactly is "quite far"? To decide that, we return to the idea of repeated sampling.
 
@@ -148,11 +148,11 @@ Here's a dataset of stats from the 2015-2016 NBA season. To make our lives easie
 nba <- read.csv("https://raw.githubusercontent.com/AddisonGauss/NbaData2015-2016/master/NBApoints.csv")
 nba <- nba[!is.na(nba$FT.),]
 
-#  the tidy(verse) way! 
+#  the tidy(verse) way!
 
 library(tidyverse)
 nba <- nba %>%
-  filter(!is.na(FT.)) 
+  filter(!is.na(FT.))
 
 ```
 
@@ -277,7 +277,7 @@ To avoid doing this too often, we have to define an "error rate" or "significanc
 quantile(dist100, c(0.025, 0.975))
 ```
 
-Check your understanding by assessing why these particular quantiles are used when $\alpha = 0.05$. Those quantiles reflect a "two-tailed" hypothesis test in which we look to see whether a sample statistic is an outlier in either direction. 
+Check your understanding by assessing why these particular quantiles are used when $\alpha = 0.05$. Those quantiles reflect a "two-tailed" hypothesis test in which we look to see whether a sample statistic is an outlier in either direction.
 
 ***Q10*** What quantiles would we consider if we were doing a "one-tailed" hypothesis to see if the sample statistic was an outlier only on the upper end of the distribution? only on the lower end of the distribution?
 
@@ -292,7 +292,7 @@ Let's try another example, this time looking at a one-tailed test. Your friend s
 ```{r}
 ## rbinom is a way to sample from a distribution of successes and failures. The sample size is n, .75 is the true parameter.
 frienddat <- replicate(1000, mean(rbinom(n = 20,1,.75)))
-count(frienddat <= 0.8) 
+count(frienddat <= 0.8)
 
 
 
@@ -354,7 +354,7 @@ To see how large a $z$-statistic has to be to cross different $\alpha$ levels, y
 
 Rather than comparing our sample statistic to some population parameter, we're often comparing two samples, e.g., control or treatment, two demographic groups. We can use a two-sample t-test to compare the groups .
 
-In a two-sample t-test, we are comparing the means in two groups and asking, as with the z-test, if its possible that we saw any difference between the two groups due to chance alone. 
+In a two-sample t-test, we are comparing the means in two groups and asking, as with the z-test, if its possible that we saw any difference between the two groups due to chance alone.
 
 Let's say we hypothesize that older players (older than 27) are better free throw shooters than younger players (27 or younger).
 
@@ -368,18 +368,18 @@ We can analyze this by hand, by calculating the mean, sample size, and standard 
 ## create a dichotomous variable indicating if a player is 27 or younger (coded 1 or not [coded 0])
 nba$young <- ifelse(nba$Age<=27,1,0)
 
-# the tidy way 
+# the tidy way
 nba <- nba %>%
   mutate(young1 = ifelse(Age <= 27, 1, 0))
 
 
-# t-test 
+# t-test
 t.test(FT.~young,nba)
 ```
 
 The t-statistic can be interpreted like a z-statistic--if the null is true (that these two groups are equal), what are the odds that we got a difference as big as the one we found in the sample. The output in R will give you the t-statistic, the p-value, and the means in each group.
 
 ***Q13*** Interpret this result. Are young players as good as older players w/ re: free throws?
-According to the significant result, we reject the null hypothesis that old players ans new players are equally good at free throws. 
+According to the significant result, we reject the null hypothesis that old players ans new players are equally good at free throws.
 
 [^1] This handout is heavily borrowed from Thomas Leeper (Creative Commons Attribution-ShareAlike License 3.0.) https://github.com/leeper/designcourse/tree/gh-pages/Assignments
