@@ -101,6 +101,10 @@ ggplot(, aes(x = 1, y = v))+
 ```{r}
 mean(v)
 sd(v)
+
+# tidyverse table
+#as.tibble(v) %>%
+#  summarise(mean=mean(value),sd=sd(value))
 ```
 
 If we expected all the values of *v* to be relatively similar, we could point out that the value 10 is more than 3 standard deviations away from the mean of the variable. Recall that a standard deviation tells us the spread of observations in a sample. 68 percent of the scores lie within one standard deviation of the mean, 95 percent lie 2 standard deviations away from the mean, 99 percent lie 3 standard deviations from the mean. A score 3 standard deviations away from the mean would mean its more extreme than 99 percent of the scores in the sample.
@@ -109,8 +113,11 @@ If we expected all the values of *v* to be relatively similar, we could point ou
 ***Q3*** To show how many standard deviations 10 is the mean of v, subtract v from 10 and divide by the standard deviation. Copy and paste the code for that analysis.
 
 ```{r}
-v - 10/sd(v)
+# Note text of question probably should say subtract mean of v as else we're operating on each elements of the vector vector
+(10 - mean(v))/sd(v)
 ```
+
+---
 
 This idea that a value is an outlier relative to some assumed central tendency is the basic logic of statistical hypothesis testing.
 
@@ -128,6 +135,16 @@ In statistical hypothesis testing, however, we are instead interested to know ho
 ***Q4*** For each of the above examples, what are the *statistic*, *unit of analysis*, and *variables*/*concepts* involved in the analysis?
 
 
+| Example                                                   | Statistic | Unit of Analysis | Concepts/Variables |
+|-----------------------------------------------------------|-----------|------------------|--------------------|
+| Mean years of education for working-age adults            |           |                  |                    |
+| Proportion of university graduates                        |           |                  |                    |
+| The male--female mean difference in annual income         |           |                  |                    |
+| The correlations between education, sex, and income       |           |                  |                    |
+| The causal effect of a university degree on annual income |           |                  |                    |
+
+---
+
 Each of the above statistics can be calculated on a sample of cases in order to make descriptive (or causal) inferences about the population of cases as a whole. But, given what we know about sampling, these inferences carry with them a degree of uncertainty that is a function of the size of the sample of cases selected from that population.
 
 A sample statistic provides an estimate of the population *parameter*. The amount of uncertainty we have about the precise value of the population parameter decreases.
@@ -138,6 +155,7 @@ Carrying forward this basic logic of *sampling variability* (or *sampling error*
 
 A data point may be considered unusual when a data is "too far away", at least 2 standard deviation from the mean?
 
+---
 
 At its core, statistical significance testing attempts to wrestle with the fact that an observed sample statistic that *appears* unusual may still be possible (or even highly probable because of sampling variability) to see from a population whose parameter is equal to the null hypothesis value. In other words, an apparently large difference between our sample statistic and the null hypothesis parameter value might be erroneous.
 
