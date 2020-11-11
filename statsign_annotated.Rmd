@@ -64,7 +64,9 @@ Questions for you:
 
 ***Q1*** In your own words, attempt to explain what it means for a research conclusion to be *significant*. You may find it useful to distinguish *substantive significance* from *statistical significance*.
 
---- 
+Significant in research can be seen as a standard to determine if your data approves your hypothesis or answers your research questions.
+Substantive significance only focuses on the oberserved effect and whether it passess the standard to be meaningful,
+Statistical significance uses different elements of the observed effect (coefficient, relationship etc) to determine if the results are to be considered important
 
 To develop an initial understanding of the idea of statistical hypothesis testing (and statistical significance), we will think about the idea of "outliers." Outliers are unusual values in a variable (or set of variables). For example, consider the following variable:
 
@@ -84,15 +86,19 @@ ggplot(, aes(x = 1, y = v))+
 
 ***Q2*** Calculate the mean and standard deviation of v
 
---- 
+```{r}
+mean(v)
+sd(v)
+```
 
 If we expected all the values of *v* to be relatively similar, we could point out that the value 10 is more than 3 standard deviations away from the mean of the variable. Recall that a standard deviation tells us the spread of observations in a sample. 68 percent of the scores lie within one standard deviation of the mean, 95 percent lie 2 standard deviations away from the mean, 99 percent lie 3 standard deviations from the mean. A score 3 standard deviations away from the mean would mean its more extreme than 99 percent of the scores in the sample.
 
 
 ***Q3*** To show how many standard deviations 10 is the mean of v, subtract v from 10 and divide by the standard deviation. Copy and paste the code for that analysis.
 
---- 
-
+```{r}
+v - 10/sd(v)
+```
 
 This idea that a value is an outlier relative to some assumed central tendency is the basic logic of statistical hypothesis testing.
 
@@ -109,8 +115,6 @@ In statistical hypothesis testing, however, we are instead interested to know ho
 
 ***Q4*** For each of the above examples, what are the *statistic*, *unit of analysis*, and *variables*/*concepts* involved in the analysis?
 
---- 
-
 
 Each of the above statistics can be calculated on a sample of cases in order to make descriptive (or causal) inferences about the population of cases as a whole. But, given what we know about sampling, these inferences carry with them a degree of uncertainty that is a function of the size of the sample of cases selected from that population.
 
@@ -120,7 +124,7 @@ Carrying forward this basic logic of *sampling variability* (or *sampling error*
 
 ***Q5*** Based upon what you know or your own intuition, how might we determine whether a statistic is unusual? What process would we use to assert that?
 
----
+A data point may be considered unusual when a data is "too far away", at least 2 standard deviation from the mean?
 
 
 At its core, statistical significance testing attempts to wrestle with the fact that an observed sample statistic that *appears* unusual may still be possible (or even highly probable because of sampling variability) to see from a population whose parameter is equal to the null hypothesis value. In other words, an apparently large difference between our sample statistic and the null hypothesis parameter value might be erroneous. 
@@ -131,7 +135,7 @@ We consider a statistic "statistically significant" when it differs more from ou
 
 ***Q6*** In your own words, try restating that definition of statistical significance.
 
----
+We consider a statistic "significant" when most variation in the repeated samples from a population draw is explained, implying that the result is not likely due to chance but some factor of interest.
 
 For a mean (like the one we looked at earlier), this would be stated as a null expectation that the mean level of education in a country is 12 years. If we collect a sample of data and find that the mean is different from 12, we would consider that mean to be statistically significantly different from our null expectation of 12 years if the sample mean was further from 12 (i.e., much larger or much smaller) than the vast majority of sample means we could expect to observe from same-sized samples drawn from a population where the true mean was 12.
 
@@ -156,8 +160,9 @@ The variable FT. indicates how often a player makes freethrows. Given that this 
 
 ***Q7*** Use `mean()` to calculate the "true" population mean of this population.
 
----
-
+```{r}
+mean(nba$FT.)
+```
 
 ***Q8*** Plot the distribution of FT.
 
@@ -182,7 +187,10 @@ ggplot(, aes(x = s1)) + geom_histogram()
 
 ***Q8*** What is the sample mean of this sample? How variable are the data as shown in the histogram?
 
----
+```{r}
+mean(s1)
+# one variable is slightly far off from the others
+```
 
 Now, repeat this but drawing a larger sample size of size 100 (call this vector `s2`).
 
@@ -191,8 +199,9 @@ s2 <- sample(nba$FT., 100, FALSE)
 ```
 
 ***Q9*** How variable are these data? What is the sample mean of `s2`?
-
----
+```{r}
+mean(s2)
+```
 
 Recall that the *standard error* is meant to capture the idea that if we repeated our sampling process and calculated our statistic of interest (in this case, the mean) on each sample, the standard deviation of those estimates around the true mean would be equal to our standard error. To get a better grasp on this idea, we are going to simulate the process of drawing random samples from our population and then compare the standard deviation of our estimates from each sample to the standard errors we calculate above.
 
@@ -224,13 +233,22 @@ The margin of error is a form of "interval estimation" in which we express our u
 To calculate the standard error, divide the standard deviation by the square root of the sample size.
 
 ```{r}
-s1.se <- sd(s1)/sqrt(10)
+s1.se <- sqrt(sd(s1)/10)
+s2.se <- sqrt(sd(s2)/100)
 ```
 
 ***Q10*** Calculate the 95 percent confidence interval for s1 and s2. Describe the confidence intervals in your own words.
 
----
-
+```{r}
+ci1_lower <- mean(s1) - (2 * s1.se)
+ci1_upper <- mean(s1) + (2 * s1.se)
+ci1_lower
+ci1_upper
+ci2_lower <- mean(s2) - (2 * s2.se)
+ci2_upper <- mean(s2) + (2 * s2.se)
+ci2_lower
+ci2_upper
+```
 Now compare the standard deviation of the sampling distribution of dist100 to the standard error of a sample of size 100. They are, hopefully, quite similar.
 
 In statistical hypothesis testing, we will say that an estimate is statistically significantly different from the null hypothesis value when the sample statistic is more than a certain number of standard errors away from the null hypothesis value. But how far is far enough to be considered *significant*? Take a look at how many observations in our `dist100` vector--recall that each observation represents the mean of a random sample--are more than 3 standard errors, more than 2 standard errors, and more than 1 standard error above or below the true mean of `x`:
@@ -245,7 +263,7 @@ dist100[dist100 < (mean(nba$FT.) - 1*sd(dist100))]
 ```
 ***Q10*** How many of the sample means are within 1, 2, and 3 standard errors of the mean?
 
----
+We may have different results on this one cuz our s1 looks different?
 
 Now here is where a short moment of consideration is required before we proceed. In statistical hypothesis testing, we are declaring a null hypothesis value as a *known* population and seeing how likely different sample estimates are when we draw repeated random samples from that population. We declare a sample statistic "statistically significant" when the sample statistic is unusually far from the null hypothesis value in that *sampling distribution* because it would seem to suggest that the sample is drawn from a population with a different population parameter value than one with a population parameter equal to the null hypothesis value. In other words, the sample statistic is so unusual for the population from which we --- under the null hypothesis --- believe that the data are drawn from, that we decide that the data are actually drawn from a population with a different population mean. That's the essence of statistical hypothesis testing.
 
@@ -263,7 +281,9 @@ Check your understanding by assessing why these particular quantiles are used wh
 
 ***Q10*** What quantiles would we consider if we were doing a "one-tailed" hypothesis to see if the sample statistic was an outlier only on the upper end of the distribution? only on the lower end of the distribution?
 
----
+
+We would use the first 50% quantile if onl looking at upper end of the distribution
+We could use the last 50% quantile if only looking at lower end of the distribution
 
 Let's try another example, this time looking at a one-tailed test. Your friend says that they make  at least 75 percent of their free throws (H_a is p(success)>.75). You test them, they make 12 out of 20 free throws.
 
@@ -272,9 +292,13 @@ Let's try another example, this time looking at a one-tailed test. Your friend s
 ```{r}
 ## rbinom is a way to sample from a distribution of successes and failures. The sample size is n, .75 is the true parameter.
 frienddat <- replicate(1000, mean(rbinom(n = 20,1,.75)))
+count(frienddat <= 0.8) 
+
+
+
 ```
 
----
+
 
 ***Q12*** Different values of $\alpha$ are possible. Small values mean we want a lower chance of a "false positive" judgment, at the expense of making many more "false negatives" (judgments where we say a sample statistic is consistent with the null hypothesis when in fact it is drawn from a different population). Try some different values. Why are these two rates (false positives and false negatives) trade-offs?
 
@@ -356,5 +380,6 @@ t.test(FT.~young,nba)
 The t-statistic can be interpreted like a z-statistic--if the null is true (that these two groups are equal), what are the odds that we got a difference as big as the one we found in the sample. The output in R will give you the t-statistic, the p-value, and the means in each group.
 
 ***Q13*** Interpret this result. Are young players as good as older players w/ re: free throws?
+According to the significant result, we reject the null hypothesis that old players ans new players are equally good at free throws. 
 
 [^1] This handout is heavily borrowed from Thomas Leeper (Creative Commons Attribution-ShareAlike License 3.0.) https://github.com/leeper/designcourse/tree/gh-pages/Assignments
