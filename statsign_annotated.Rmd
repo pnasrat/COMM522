@@ -17,6 +17,7 @@ knit: (function(input_file, encoding) {
 
 ```{r include=FALSE}
 library("tidyverse")
+library("ggplot2")
 ```
 
 Please send to Isabelle and I by 9 am, November 12.
@@ -101,10 +102,12 @@ ggplot(, aes(x = 1, y = v))+
 ```{r}
 mean(v)
 sd(v)
+```
 
+```{r}
 # tidyverse table
-#as.tibble(v) %>%
-#  summarise(mean=mean(value),sd=sd(value))
+as.tibble(v) %>%
+  summarise(mean=mean(value),sd=sd(value))
 ```
 
 If we expected all the values of *v* to be relatively similar, we could point out that the value 10 is more than 3 standard deviations away from the mean of the variable. Recall that a standard deviation tells us the spread of observations in a sample. 68 percent of the scores lie within one standard deviation of the mean, 95 percent lie 2 standard deviations away from the mean, 99 percent lie 3 standard deviations from the mean. A score 3 standard deviations away from the mean would mean its more extreme than 99 percent of the scores in the sample.
@@ -137,7 +140,7 @@ In statistical hypothesis testing, however, we are instead interested to know ho
 
 | Example                                                   | Statistic | Unit of Analysis | Concepts/Variables |
 |-----------------------------------------------------------|-----------|------------------|--------------------|
-| Mean years of education for working-age adults            |           |                  |                    |
+| Mean years of education for working-age adults            | Years Ed |  Mean years       | Working-age, adult |
 | Proportion of university graduates                        |           |                  |                    |
 | The male--female mean difference in annual income         |           |                  |                    |
 | The correlations between education, sex, and income       |           |                  |                    |
@@ -179,8 +182,8 @@ nba <- read.csv("https://raw.githubusercontent.com/AddisonGauss/NbaData2015-2016
 nba <- nba[!is.na(nba$FT.),]
 
 #  the tidy(verse) way!
-
-library(tidyverse)
+# PN/; moved this import to initial block that doesn't get included in the knit to make for cleaner output
+#library(tidyverse)
 nba <- nba %>%
   filter(!is.na(FT.))
 
@@ -192,12 +195,17 @@ The variable FT. indicates how often a player makes freethrows. Given that this 
 
 ```{r}
 mean(nba$FT.)
+
+# Tidyverse table
+nba %>%
+  summarise(mean=mean(FT.))
 ```
 
 ***Q8*** Plot the distribution of FT.
 
 ```{r}
-library("ggplot2")
+# PN: Moved imports to top
+# library("ggplot2")
 ggplot(nba, aes(x = FT.)) +
   geom_histogram()
 ```
@@ -207,6 +215,7 @@ ggplot(nba, aes(x = FT.)) +
 Now, we will draw a small sample from this population using the `sample()` function. Start by drawing a small sample of just ten observations:
 
 ```{r}
+# Note text says 10, code says 5!
 s1 <- sample(nba$FT., 5, FALSE)
 ```
 Use **ggplot2** to draw a histogram of these data:
