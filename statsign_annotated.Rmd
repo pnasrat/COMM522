@@ -281,8 +281,8 @@ The margin of error is a form of "interval estimation" in which we express our u
 To calculate the standard error, divide the standard deviation by the square root of the sample size.
 
 ```{r}
-s1.se <- sqrt(sd(s1)/10)
-s2.se <- sqrt(sd(s2)/100)
+s1.se <- sd(s1)/sqrt(10)
+s2.se <- sd(s2)/sqrt(100)
 ```
 
 ***Q10*** Calculate the 95 percent confidence interval for s1 and s2. Describe the confidence intervals in your own words.
@@ -302,6 +302,7 @@ Now compare the standard deviation of the sampling distribution of dist100 to th
 In statistical hypothesis testing, we will say that an estimate is statistically significantly different from the null hypothesis value when the sample statistic is more than a certain number of standard errors away from the null hypothesis value. But how far is far enough to be considered *significant*? Take a look at how many observations in our `dist100` vector--recall that each observation represents the mean of a random sample--are more than 3 standard errors, more than 2 standard errors, and more than 1 standard error above or below the true mean of `x`:
 
 ```{r}
+sd(dist100)
 dist100[dist100 > (mean(nba$FT.) + 3*sd(dist100))]
 dist100[dist100 < (mean(nba$FT.) - 3*sd(dist100))]
 dist100[dist100 > (mean(nba$FT.) + 2*sd(dist100))]
@@ -311,9 +312,22 @@ dist100[dist100 < (mean(nba$FT.) - 1*sd(dist100))]
 ```
 ***Q10*** How many of the sample means are within 1, 2, and 3 standard errors of the mean?
 
-We may have different results on this one cuz our s1 looks different? (due to sampling)
 
 ```{r}
+# Visualize dist100 for convenience
+df <-data.frame(dist100)
+df %>%
+  ggplot(aes(x = as.numeric(row.names(df)) ,y = dist100))  +
+  geom_line()
+```
+
+```{r}
+# Note this 
+length(dist100)
+length(dist100[dist100 > (mean(nba$FT.) + 3*sd(dist100))]) + length(dist100[dist100 < (mean(nba$FT.) - 3*sd(dist100))])
+length(dist100[dist100 > (mean(nba$FT.) + 2*sd(dist100))]) + length(dist100[dist100 < (mean(nba$FT.) - 2*sd(dist100))])
+length(dist100[dist100 > (mean(nba$FT.) + 1*sd(dist100))]) + length(dist100[dist100 < (mean(nba$FT.) - 1*sd(dist100))])
+length(dist100[dist100 <= (mean(nba$FT.) + 1*sd(dist100))]) + length(dist100[dist100 < (mean(nba$FT.) - 1*sd(dist100))])
 ```
 
 Now here is where a short moment of consideration is required before we proceed. In statistical hypothesis testing, we are declaring a null hypothesis value as a *known* population and seeing how likely different sample estimates are when we draw repeated random samples from that population. We declare a sample statistic "statistically significant" when the sample statistic is unusually far from the null hypothesis value in that *sampling distribution* because it would seem to suggest that the sample is drawn from a population with a different population parameter value than one with a population parameter equal to the null hypothesis value. In other words, the sample statistic is so unusual for the population from which we --- under the null hypothesis --- believe that the data are drawn from, that we decide that the data are actually drawn from a population with a different population mean. That's the essence of statistical hypothesis testing.
